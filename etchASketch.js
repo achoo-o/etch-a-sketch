@@ -2,7 +2,7 @@ const body = document.querySelector('body');
 
 let i = 0,
     cells = 16,
-    color = '#212121',
+    color = 'hsl(0, 0%, ' + '13%)',
     containerLength = 480;
 
 //Container
@@ -15,17 +15,16 @@ function styleContainer(cells) {
 //Create colors
 let colorOption = document.getElementsByClassName('color');
 
-colorOption[0].onclick = function() { color = '#212121'; };
-colorOption[1].onclick = function() { color = null; };
-//colorOption[2].onclick = function() { color = 'green' };
-colorOption[2].onclick = function() { color = 'white' };
+colorOption[0].onclick = function() { color = 'hsl(0, 0%, 13%)'; };
+colorOption[1].onclick = function() { color = 'random'; };
+colorOption[2].onclick = function() { color = 'shade'; };
+colorOption[3].onclick = function() { color = 'hsl(0, 0%, 100%)'; };
 
 function randomColor() {
-    let r = Math.floor(Math.random() * 257) - 1;
-    let g = Math.floor(Math.random() * 257) - 1;
-    let b = Math.floor(Math.random() * 257) - 1;
-    console.log(r + ' ' + g + ' ' + b);
-    return 'rgb(' + r + ', ' + g + ', ' + b + ')'
+    let h = Math.floor(Math.random() * 361);
+    let s = Math.floor(Math.random() * 101 + 50);
+    let l = 70 //Math.floor(Math.random() * 101);
+    return 'hsl(' + h + ', ' + s + '%, ' + l + '%)'
 }
 
 //Create Grid
@@ -37,6 +36,7 @@ function createGrid(cells) {
     for (let i = 0; i < cells*cells; i++) {
         let div = document.createElement('div');
         div.style.backgroundColor = 'white';
+        div.style.opacity = '1';
         div.setAttribute('class','gridItem');
         div.addEventListener('mouseover',changeColor, false);
         container.appendChild(div);
@@ -53,15 +53,14 @@ document.getElementById('reset').onclick = function(){
 
 //Size change request
 document.getElementById('sizeChange').onclick = function(){
-    //in case of cancel, saves orig cell count
     const origCells = cells;
     cells = prompt("What length would you like your new canvas? (MAX: 80)");
     
-    while (isNaN(cells) == true || cells > 80 || cells <= 0) {
+    while (isNaN(cells) == true || cells > 80) {
         cells = Number(prompt("Please enter a valid number (MAX: 80)"));
     }
     
-    //if user cancels
+    //if user cancels request
     if (cells === null) {cells = origCells; return;};
     
     createGrid(cells);
@@ -69,11 +68,14 @@ document.getElementById('sizeChange').onclick = function(){
 };
 
 //Event
-function changeColor(e) {
-    if (isNaN(color)) {
-        e.target.style.backgroundColor = color;  
+function changeColor(event) {
+    if (color === 'random') {
+        this.style.opacity = '1';
+        this.style.backgroundColor = randomColor();
+    } else if (color === 'shade') {
+        this.style.opacity = Number(this.style.opacity) - 0.1;
     } else {
-        e.target.style.backgroundColor = randomColor();
+        this.style.backgroundColor = color;  
     }
 };
 

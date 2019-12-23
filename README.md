@@ -1,4 +1,4 @@
-#Etch A Sketch
+# Etch A Sketch
 
 [Live link](https://achoo-o.github.io/etch-a-sketch/etchASketch.html)
 

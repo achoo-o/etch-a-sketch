@@ -48,6 +48,7 @@ document.getElementById('reset').onclick = function(){
     let cellList = document.getElementsByClassName('gridItem');
     for (let i = 0; i < cells * cells; i++) {
         cellList[i].style.backgroundColor = 'white';
+        cellList[i].style.opacity = '1';
     };
 };
 

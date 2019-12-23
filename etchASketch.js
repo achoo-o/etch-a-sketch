@@ -57,7 +57,7 @@ document.getElementById('sizeChange').onclick = function(){
     const origCells = cells;
     cells = prompt("What length would you like your new canvas? (MAX: 80)");
     
-    while (isNaN(cells) == true || cells > 80) {
+    while (isNaN(cells) == true || cells > 80 || cells <= 0) {
         cells = Number(prompt("Please enter a valid number (MAX: 80)"));
     }
     

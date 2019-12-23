@@ -75,6 +75,7 @@ function changeColor(event) {
     } else if (color === 'shade') {
         this.style.opacity = Number(this.style.opacity) - 0.1;
     } else {
+        this.style.opacity = '1';
         this.style.backgroundColor = color;  
     }
 };
